@@ -2,7 +2,7 @@
 
 批量搜索脚本，新增Baidu、Google、360SO、Bing、Zoomeye，用于渗透中采集。
 
-<img src="./Screenshots/banner.png"></img>
+<img src="https://github.com/j3ers3/Searpy/blob/master/Screenshots/banner.png"></img>
 
 ## Help menu
 ```
