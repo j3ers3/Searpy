@@ -28,12 +28,13 @@ __date__  = "2016/01/01"
 
 col_purp = '\033[95m'
 col_cyan = '\033[96m'
-col_red  = '\033[94m'
+col_blue = '\033[94m'
+col_red = '\033[90m'
 col_end  = '\033[0m'
 
 
-banner = col_red + """
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+banner = col_blue + """
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
  ____
 / ___|  ___  __ _ _ __ _ __  _   _
 \___ \ / _ \/ _` | '__| '_ \| | | |
@@ -41,9 +42,11 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 |____/ \___|\__,_|_|  | .__/ \__, |
                       |_|    |___/\n""" + col_cyan + """
 
-                            Searpy Ver. 1.1
-                            Update 2018 04 17
-                            Coded by whois\n""" + col_end
+                             Searpy Ver. 1.1
+                             Update 2018 04 17
+                             Coded by whois\n""" + col_blue + """
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n""" + col_end
+
 
 # set shadowsocks proxy
 Proxy = {
@@ -82,13 +85,13 @@ def zoomeye(search, page, z_type):
         app:"Drupal" country:"JP"
 
     """
-    url_login = "https://api.zoomeye.org/user/login"
+    #url_login = "https://api.zoomeye.org/user/login"
     url_api = "https://www.zoomeye.org/api/search"
 
     # 认证信息
     Headers2 = {"Cube-Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjI5OTY0Nzk4MjhAcXEuY29tIiwidXVpZCI6Ijk1YWQyZTY2NTk2MjlkNjMyMjZlZjI0MzUyMmQyNDA3IiwiaWF0IjoxNTIzOTQzNjM2LCJleHAiOjE1MjQwMzAwMzZ9.DdGIDsP4NnX_xkpm1IEmvnfYYmZqSl7V20Oc8axY3EE"}
 
-    print "[!] Using zoomeye with type {0}\n".format(z_type)
+    print col_red + "[!] Using zoomeye with type {0}\n".format(z_type) + col_end
 
     for n in xrange(1, page+1):
         try:
@@ -153,7 +156,6 @@ def bing(search, page):
 
 
 # Google搜索
-# 存在一些bug，等待修复
 def google(search, page):
 
     for n in xrange(0, 10*page, 10):
@@ -161,10 +163,8 @@ def google(search, page):
         try:
             r = requests.get(base_url, headers={'User-Agent': choice(Agents_list)}, proxies=Proxy, timeout=16)
             soup = BeautifulSoup(r.text, "html.parser")
-            for a in soup.select('div.kv cite'):
-                url = a.text
-                if 'http' not in url:
-                    url = 'http://' + url
+            for a in soup.select('div.rc > h3.r > a'):
+                url = a['href']
                 yield url
         except Exception as e:
             yield None
@@ -203,7 +203,7 @@ if __name__ == '__main__':
     (options, args) = parser.parse_args()
 
     if options.zoomeye == None and options.baidu == None and options.so == None and options.google == None and options.bing == None:
-        print "[x] Please use -h to see help"
+        print col_red + "[x] Please use -h to see help" + col_end
         sys.exit(0)
 
     if options.zoomeye:
