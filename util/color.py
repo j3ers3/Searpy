@@ -1,0 +1,11 @@
+    
+purple   = '\033[95m'
+purple2  = '\033[92m'
+cyan     = '\033[96m'
+darkcyan = '\033[36m'
+blue     = '\033[94m'
+green    = '\033[32m'
+yellow   = '\033[93m'
+red      = '\033[31m'
+bold     = '\033[1m'
+end      = '\033[0m'
