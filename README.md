@@ -2,17 +2,7 @@
 
 🔧 批量搜索工具，用于渗透中采集。
 
-![](./pic/banner.png){:height="400" width="700"}
-
-## 搜索引擎
-- [x] Shodan
-- [x] Fofa
-- [ ] Zoomeye
-- [x] Google
-- [x] Baidu
-- [x] Bing
-- [x] 360so
-- [x] goo
+<img src="./pic/banner.png" width="700" height="400">
 
 ## Install
 ```
@@ -35,10 +25,8 @@ python Searpy.py --google -s "inurl:login.action" -p 1
 
 ```
 
-
-![](./pic/fofa.png){:height="550" width="700"}
-
-![](./pic/google.png){:height="500" width="700"}
+<img src="./pic/fofa.png" width="700" height="550">
+<img src="./pic/google.png" width="700" height="500">
 
 
 
@@ -47,7 +35,8 @@ python Searpy.py --google -s "inurl:login.action" -p 1
 
 `python Searpy.py --shodan_ico https://www.qq.com`
 
-![](./pic/ico.png){:height="450" width="700"}
+<img src="./pic/ico.png" width="700" height="450">
+
 
 
 ## 模块调用
@@ -59,6 +48,15 @@ python Searpy.py --google -s "inurl:login.action" -p 1
 >>>     print(i)
 ```
 
+## 搜索引擎
+- [x] Shodan
+- [x] Fofa
+- [ ] Zoomeye
+- [x] Google
+- [x] Baidu
+- [x] Bing
+- [x] 360so
+- [x] goo
 
 ## Donations
 * XMR: `498AoZRwfC11Fa4LwAyVVp3wRD4Zyf1e1HziegczeWeSYVVTZ8gw8CoNPm5yhY91tkDqDMBg6A5KUfyowMtdkQDrDxE5aVN`
