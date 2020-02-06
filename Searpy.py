@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # encoding:utf8
 import argparse
 from util.color import *
@@ -10,6 +10,9 @@ from modules.google_module import Google
 from modules.so_module import So
 from modules.goo_module import Goo
 from modules.shodanico_module import Shodanico
+from modules.zoomeye_module import Zoomeye
+from modules.yahoo_module import Yahoo
+
 """
 >>> from Searpy import Bing
 >>> s = Bing('inurl:php?id=1', 2)
@@ -20,10 +23,11 @@ from modules.shodanico_module import Shodanico
 
 ##########################################################
 
-__version__ = "2.0"
-__prog__    = "Searpy"
-__author__  = "whois"
-__create_date__  = "2016/01/01"
+__version__ = "2.1"
+__prog__ = "Searpy"
+__author__ = "whois"
+__create_date__ = "2016 01 01"
+__update_date__ = "2020 01 14"
 
 ##########################################################
 
@@ -37,11 +41,10 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 |____/ \___|\__,_|_|  | .__/ \__, |
                       |_|    |___/\n""" + purple2 + """
 
-                             Searpy Ver. 2.0
-                             Update 2019 12 11
-                             Coded by whois\n""" + blue + """
+                             Searpy Ver. {0}
+                             Update {1}
+                             Coded by {2}\n""".format(__version__, __update_date__, __author__) + blue + """
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n""" + end
-
 
 
 def save(save_file, content):
@@ -51,6 +54,7 @@ def save(save_file, content):
         except Exception as e:
             pass
 
+
 def p(i):
     print(yellow + i + end)
 
@@ -58,47 +62,58 @@ def p(i):
 if __name__ == '__main__':
     print(banner)
     parser = argparse.ArgumentParser(
-        description="Searpy Engine Tookit", 
-        version="{0}: {1} ({1})".format(__prog__, __version__, __author__),
-        epilog='''Example: 
-            Searpy --shodan_ico sec-wiki.com''')
+        usage='Searpy --fofa -s "app=jboss" -p1',
+        description="Searpy Engine Tookit",
+    )
 
-    parser.add_argument("--baidu", dest="baidu", action="store_true",
+    engine = parser.add_argument_group('ENGINE')
+
+    engine.add_argument("--baidu", dest="baidu", action="store_true",
                         help="Using baidu Engine")
-    parser.add_argument("--google", dest="google", action="store_true",
+    engine.add_argument("--google", dest="google", action="store_true",
                         help="Using google Engine")
-    parser.add_argument("--so", dest="so", action="store_true",
+    engine.add_argument("--so", dest="so", action="store_true",
                         help="Using 360so Engine")
-    parser.add_argument("--bing", dest="bing", action="store_true",
+    engine.add_argument("--bing", dest="bing", action="store_true",
                         help="Using bing Engine")
-    parser.add_argument("--shodan", dest="shodan", action="store_true",
+    engine.add_argument("--shodan", dest="shodan", action="store_true",
                         help="Using shodan get favicon")
-    parser.add_argument("--fofa", dest="fofa", action="store_true",
+    engine.add_argument("--fofa", dest="fofa", action="store_true",
                         help="Using fofa Engine")
-    parser.add_argument("--zoomeye", dest="zoomeye", action='store_true', 
+    engine.add_argument("--zoomeye", dest="zoomeye", action='store_true',
                         help="Using zoomeye Engine")
-    parser.add_argument("--goo", dest="goo", action="store_true",
+    engine.add_argument("--goo", dest="goo", action="store_true",
                         help="Using goo Engine")
+    engine.add_argument("--yahoo", dest="yahoo", action='store_true',
+                        help="Using yahoo Engine")
 
-    parser.add_argument("--shodan_ico",
+    script = parser.add_argument_group('SCRIPT')
+
+    script.add_argument("--shodan_ico",
                         help="Get ip list which using the same favicon.ico")
-    parser.add_argument("-s", dest="search", 
-                        help="Speciy Keyword")
-    parser.add_argument("-o", dest="output", 
-                        help="Specify output file default output.txt")
-    parser.add_argument("-p", dest="page",default=1, type=int, 
-                        help="Search page (default 1)")
-    parser.add_argument("-l", dest="limit", default=10, type=int, 
-                        help="Maximum searching results (default:10) Only Shodan")
+
+    misc = parser.add_argument_group('MISC')
+
+    misc.add_argument("-s", dest="search",
+                      help="Speciy Keyword")
+    misc.add_argument("-o", dest="output",
+                      help="Specify output file default output.txt")
+    misc.add_argument("-p", dest="page", default=1, type=int,
+                      help="Search page (default 1)")
+    misc.add_argument("-l", dest="limit", default=10, type=int,
+                      help="Maximum searching results (default:10) Only Shodan")
 
     args = parser.parse_args()
 
-    if args.search == None and args.shodan_ico == None:
+    if args.search is None and args.shodan_ico is None:
         print(red + "[x] Searpy -h" + end)
         exit(0)
 
     if args.zoomeye:
-        pass
+        s = Zoomeye(args.search, args.page)
+        s.search()
+        for i in s.result:
+            save(args.output, i) if args.output else p(i)
 
     if args.shodan:
         s = Shodan(args.search, args.limit)
@@ -114,7 +129,7 @@ if __name__ == '__main__':
         s.search()
         for i in s.result:
             save(args.output, i) if args.output else p(i)
-            
+
     if args.baidu:
         s = Baidu(args.search, args.page)
         s.search()
@@ -145,7 +160,12 @@ if __name__ == '__main__':
         for i in s.result:
             save(args.output, i) if args.output else p(i)
 
+    if args.yahoo:
+        s = Yahoo(args.search, args.page)
+        s.search()
+        for i in s.result:
+            save(args.output, i) if args.output else p(i)
+
     if args.shodan_ico:
         s = Shodanico(args.shodan_ico)
         s.search(s.get_hash())
-   

@@ -1,6 +1,8 @@
-# 🥀 Searpy ![Stage](https://img.shields.io/badge/Release-STABLE-brightgreen.svg) [![Python 2.7](https://img.shields.io/badge/Python-2.7-yellow.svg)](http://www.python.org/download/) ![Build Status](https://img.shields.io/badge/Version-2.0-red.svg)
+# 🥀 Searpy ![Stage](https://img.shields.io/badge/Release-STABLE-brightgreen.svg) [![Python 2.7](https://img.shields.io/badge/Python-2.7-yellow.svg)](http://www.python.org/download/) [![Python 3.7](https://img.shields.io/badge/Python-3.7-yellow.svg)](http://www.python.org/download/) ![Build Status](https://img.shields.io/badge/Version-2.0-red.svg)
 
-🔧 批量搜索工具，用于渗透中采集。
+🔧 批量搜索工具，可用于采集和溯源
+
+> 支持py2和py3
 
 <img src="./pic/banner.png" width="700" height="400">
 
@@ -51,12 +53,18 @@ python Searpy.py --google -s "inurl:login.action" -p 1
 ## 搜索引擎
 - [x] Shodan
 - [x] Fofa
-- [ ] Zoomeye
+- [x] Zoomeye
+- [ ] Censys
+- [ ] Dnsdb
 - [x] Google
 - [x] Baidu
 - [x] Bing
 - [x] 360so
-- [x] goo
+- [x] Goo
+- [x] Yahoo
+
+## ToDo
+- [ ] 添加子域名搜索
 
 ## Donations
 * XMR: `498AoZRwfC11Fa4LwAyVVp3wRD4Zyf1e1HziegczeWeSYVVTZ8gw8CoNPm5yhY91tkDqDMBg6A5KUfyowMtdkQDrDxE5aVN`
