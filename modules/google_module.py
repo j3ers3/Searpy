@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 # encoding:utf8
-
-from urllib import quote
 import requests
 from util.config import *
 from util.header import Header
@@ -17,10 +15,10 @@ class Google:
 
     def search(self):
         res = []
-
+        print("[+] Using Google Engine")
         try:
             for p in range(0, (self.page*10), 10):
-                base_url = 'https://www.google.com/search?safe=strict&q=' + str(quote(self.query)) + '&oq=' + str(quote(self.query)) + 'start=' + str(p)
+                base_url = 'https://www.google.com/search?safe=strict&q=' + str(self.query) + '&oq=' + str(self.query) + 'start=' + str(p)
 
                 r = requests.get(base_url, headers=Header.bing_headers, verify=False, timeout=14, proxies=self.proxy)
                 soup = BeautifulSoup(r.content, "html.parser")
@@ -32,6 +30,12 @@ class Google:
                         
                 # 防止请求过于频繁导致限制
                 sleep(2)
+
+            if res is None:
+                print("[x] Not result !!!")
+                exit(1)
             self.result = res
+
         except Exception as e:
-            pass
+            print("[x] Network is error !!!")
+            exit(1)

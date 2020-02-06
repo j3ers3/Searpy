@@ -19,11 +19,11 @@ class Shodanico:
 
         try:
             r = requests.get(url, verify=False, timeout=20, headers=Header.headers)
-            if r.headers['Content-Type'] == "image/x-icon":
-                favicon = r.content.encode('base64')
-                hash = mmh3.hash(favicon)
-            else:
-                hash = None
+            #if r.headers['Content-Type'] == "image/x-icon":
+            favicon = r.content.encode('base64')
+            hash = mmh3.hash(favicon)
+            #else:
+                #hash = None
         except Exception as e:
             print("[x] Network is error")
             hash = None
@@ -48,6 +48,6 @@ class Shodanico:
                 print("[x] No favicon")
         except Exception as e:
             print(e)
-        except KeyboardInterrupt, e:
+        except KeyboardInterrupt as e:
             exit(1)
 

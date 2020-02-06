@@ -30,6 +30,8 @@ class Shodan:
         return True
 
     def search(self):
+        print("[+] Using Shodan Engine")
+
         try:
             api = shodan.Shodan(self.api_key)
             result = api.search(query=self.query, limit=self.limit)
