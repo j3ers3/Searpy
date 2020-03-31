@@ -8,12 +8,13 @@ import json
 
 
 class Fofa:
-    def __init__(self, query, page):
+    def __init__(self, query, page, output):
         self.query = query
         self.page = page
         self.email = fofa_email
         self.api_key = fofa_key
         self.result = None
+        self.output = output
 
     def login(self):
         if not self.api_key:
@@ -23,6 +24,8 @@ class Fofa:
 
     def search(self):
         query = base64.b64encode(self.query.encode('utf-8')).decode('utf-8')
+        #query = base64.b64encode(self.query)
+        
         res = []
         print("[+] Using Fofa Engine")
 
@@ -40,14 +43,23 @@ class Fofa:
                 if result_json.get('results'):
                     for item in result_json.get('results'):
                         url = item[0] if '://' in item[0] else 'http://' + item[0]
-                        res.append(url)
+                        # res.append(url)
+                        print(url)
+                        if self.output:
+                            with open(self.output, 'a') as f:
+                                try:
+                                    f.writelines(url + '\n')
+                                except Exception as e:
+                                    pass
+                        else:
+                            pass
                 else:
                     break
 
-            if res is None:
-                print("[x] Not result !!!")
-                exit(1)
-            self.result = res
+            #if res is None:
+             #   print("[x] Not result !!!")
+            #    exit(1)
+            #self.result = res
 
         except Exception as e:
             pass

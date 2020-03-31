@@ -23,11 +23,11 @@ from modules.yahoo_module import Yahoo
 
 ##########################################################
 
-__version__ = "2.1"
+__version__ = "2.2"
 __prog__ = "Searpy"
 __author__ = "whois"
 __create_date__ = "2016 01 01"
-__update_date__ = "2020 01 14"
+__update_date__ = "2020 03 31"
 
 ##########################################################
 
@@ -124,11 +124,11 @@ if __name__ == '__main__':
             save(args.output, i) if args.output else p(i)
 
     if args.fofa:
-        s = Fofa(args.search, args.page)
+        s = Fofa(args.search, args.page, args.output)
         s.login()
         s.search()
-        for i in s.result:
-            save(args.output, i) if args.output else p(i)
+        #for i in s.result:
+        #    save(args.output, i) if args.output else p(i)
 
     if args.baidu:
         s = Baidu(args.search, args.page)

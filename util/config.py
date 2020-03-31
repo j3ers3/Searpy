@@ -14,6 +14,7 @@ shodan_key = ''
 
 # google proxy
 proxy = {
-    'http':'http://127.0.0.1:8001',
-    'https':'http://127.0.0.1:8001'
+    'http':'http://127.0.0.1:1087',
+    'https':'http://127.0.0.1:1087'
 }
+
