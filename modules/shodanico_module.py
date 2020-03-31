@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+import sys
 import mmh3
 import shodan
 import base64
@@ -20,11 +21,17 @@ class Shodanico:
         try:
             r = requests.get(url, verify=False, timeout=20, headers=Header.headers)
             #if r.headers['Content-Type'] == "image/x-icon":
-            favicon = r.content.encode('base64')
+            if sys.version_info > (3, 0):
+                favicon = base64.encodebytes(r.content)
+            else:
+                favicon = r.content.encode('base64')
+
             hash = mmh3.hash(favicon)
+            
             #else:
                 #hash = None
         except Exception as e:
+            print(e)
             print("[x] Network is error")
             hash = None
 
