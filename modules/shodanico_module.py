@@ -5,7 +5,7 @@ import mmh3
 import shodan
 import base64
 import requests
-from util.config import *
+from config import *
 from util.header import Header
 
 class Shodanico:
@@ -28,8 +28,6 @@ class Shodanico:
 
             hash = mmh3.hash(favicon)
             
-            #else:
-                #hash = None
         except Exception as e:
             print(e)
             print("[x] Network is error")
@@ -38,7 +36,7 @@ class Shodanico:
         return hash
 
 
-    # http.favicon.hash查询
+    # shodan的icon查询，http.favicon.hash
     def search(self, hash):
         api = shodan.Shodan(self.api_key)
         try:
@@ -58,3 +56,4 @@ class Shodanico:
         except KeyboardInterrupt as e:
             exit(1)
 
+    

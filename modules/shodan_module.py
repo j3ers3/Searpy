@@ -3,7 +3,7 @@
 import shodan
 import sys
 from shodan.exception import APIError
-from util.config import *
+from config import *
 
 class Shodan:
     def __init__(self, query, limit):
@@ -22,7 +22,7 @@ class Shodan:
             api = shodan.Shodan(self.api_key)
             account_info = api.info()
             search_count = api.count(self.query)['total']
-            print("[+] Available Shodan query credits: {0}").format(account_info.get('query_credits'))
+            print("[+] Available Shodan query credits: {0}".format(account_info.get('query_credits')))
             print("[+] {0} count {1}".format(self.query, search_count))
             print('')
         except APIError as e:

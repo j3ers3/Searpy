@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # encoding:utf8
 from util.header import Header
-from util.config import *
+from config import *
 import base64
 import requests
 import json
@@ -47,19 +47,9 @@ class Fofa:
                         print(url)
                         if self.output:
                             with open(self.output, 'a') as f:
-                                try:
-                                    f.writelines(url + '\n')
-                                except Exception as e:
-                                    pass
-                        else:
-                            pass
+                                f.writelines(url + '\n')            
                 else:
                     break
-
-            #if res is None:
-             #   print("[x] Not result !!!")
-            #    exit(1)
-            #self.result = res
 
         except Exception as e:
             pass

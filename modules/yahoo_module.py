@@ -2,7 +2,7 @@
 # encoding:utf8
 from util.header import Header
 import requests
-from util.config import *
+from config import *
 from bs4 import BeautifulSoup
 
 class Yahoo:

@@ -12,9 +12,12 @@ zoomeye_password = ''
 # shodan key
 shodan_key = ''
 
-# google proxy
+# SSR proxy
+'''
 proxy = {
     'http':'http://127.0.0.1:1087',
     'https':'http://127.0.0.1:1087'
 }
+'''
 
+proxy = {}

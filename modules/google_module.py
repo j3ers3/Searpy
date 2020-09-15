@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding:utf8
 import requests
-from util.config import *
+from config import *
 from util.header import Header
 from bs4 import BeautifulSoup
 from time import sleep

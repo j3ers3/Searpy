@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # encoding:utf8
 from util.header import Header
 import requests
@@ -16,14 +16,15 @@ class So:
 
         try:
             for p in range(1, self.page+1):
-                base_url = 'https://www.so.com/s?q=' + str(quote(self.query)) + '&pn=' + str(p) + '&fr=so.com'
+                base_url = 'https://www.so.com/s?q=' + str(self.query) + '&pn=' + str(p) + '&fr=so.com'
 
                 r = requests.get(base_url, headers=Header.headers, verify=False, timeout=10)
                 soup = BeautifulSoup(r.content, "html.parser")
                 
                 for a in soup.select('li.res-list > h3 > a'):
-                    rr = requests.get(a['href'], headers=Header.headers,allow_redirects=True, timeout=5)
-                    res.append(rr.url)
+                    url = a['data-mdurl']
+                    #rr = requests.get(a['href'], headers=Header.headers,allow_redirects=True, timeout=5)
+                    res.append(url)
 
             if res is None:
                 print("[x] Not result !!!")
@@ -31,6 +32,7 @@ class So:
             self.result = res
 
         except Exception as e:
+            print(e)
             print("[x] Network is error !!!")
             exit(1)
 

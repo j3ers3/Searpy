@@ -3,7 +3,7 @@
 import requests
 import json
 from util.header import Header
-from util.config import *
+from config import *
 
 class Zoomeye:
     def __init__(self, query, page):
