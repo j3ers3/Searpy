@@ -23,11 +23,11 @@ from modules.yahoo_module import Yahoo
 
 ##########################################################
 
-__version__ = "2.2"
+__version__ = "2.3"
 __prog__ = "Searpy"
 __author__ = "whois"
 __create_date__ = "2016 01 01"
-__update_date__ = "2020 03 31"
+__update_date__ = "2020 09 14"
 
 ##########################################################
 
@@ -77,7 +77,7 @@ if __name__ == '__main__':
     engine.add_argument("--bing", dest="bing", action="store_true",
                         help="Using bing Engine")
     engine.add_argument("--shodan", dest="shodan", action="store_true",
-                        help="Using shodan get favicon")
+                        help="Using shodan Engine")
     engine.add_argument("--fofa", dest="fofa", action="store_true",
                         help="Using fofa Engine")
     engine.add_argument("--zoomeye", dest="zoomeye", action='store_true',
@@ -89,7 +89,9 @@ if __name__ == '__main__':
 
     script = parser.add_argument_group('SCRIPT')
 
-    script.add_argument("--shodan_ico",
+    script.add_argument("--shodan_icon",
+                        help="Get ip list which using the same favicon.ico")
+    script.add_argument("--fofa_icon",
                         help="Get ip list which using the same favicon.ico")
 
     misc = parser.add_argument_group('MISC')
@@ -105,7 +107,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    if args.search is None and args.shodan_ico is None:
+    if args.search is None and args.shodan_icon is None and args.fofa_icon is None:
         print(red + "[x] Searpy -h" + end)
         exit(0)
 
@@ -166,6 +168,14 @@ if __name__ == '__main__':
         for i in s.result:
             save(args.output, i) if args.output else p(i)
 
-    if args.shodan_ico:
-        s = Shodanico(args.shodan_ico)
+    if args.shodan_icon:
+        s = Shodanico(args.shodan_icon)
         s.search(s.get_hash())
+
+    if args.fofa_icon:
+        i_hash = Shodanico(args.fofa_icon).get_hash()
+        search = 'icon_hash="{}"'.format(i_hash)
+        s = Fofa(search, args.page, args.output)
+        s.login()
+        s.search()
+
