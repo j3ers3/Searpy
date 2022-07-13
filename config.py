@@ -1,23 +1,20 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # encoding:utf8
 
-# fofa key 
+# fofa https://fofa.info/ 
 fofa_email = ''
 fofa_key = ''
 
-# zoomeye 账号
+# zoomeye https://www.zoomeye.org/
 zoomeye_email = ''
 zoomeye_password = ''
 
-# shodan key
+# shodan https://shodan.io/
 shodan_key = ''
 
-# SSR proxy
-'''
-proxy = {
-    'http':'http://127.0.0.1:1087',
-    'https':'http://127.0.0.1:1087'
-}
-'''
+# quake https://quake.360.cn/
+quake_key = ''
 
-proxy = {}
+# 鹰图 https://hunter.qianxin.com/
+hunter_key = ''
+

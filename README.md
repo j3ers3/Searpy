@@ -4,7 +4,7 @@
 
 > 支持py2和py3
 
-![banner](media/banner.png)
+![banner](media/xxx.png)
 
 
 ## 1. Install
@@ -35,6 +35,8 @@ ENGINE:
   --zoomeye             Using zoomeye Engine
   --goo                 Using goo Engine
   --yahoo               Using yahoo Engine
+  --quake               Using quake Engine
+  --hunter              Using hunter Engine
 
 SCRIPT:
   --shodan_icon SHODAN_ICON
@@ -47,15 +49,18 @@ MISC:
   -o OUTPUT             Specify output file default output.txt
   -p PAGE               Search page (default 1)
   -l LIMIT              Maximum searching results (default:10) Only Shodan
+  --proxy PROXY         HTTP Proxy, eg http://127.0.0.1:8080
 ```
 
 ### 2.1 示例
 ```
-python3 Searpy.py --fofa -s "app=jboss" -p 1
+python3 Searpy.py --fofa -s "app=jboss" -p10
+python3 Searpy.py --shodan -s "weblogic" -l10 
+python3 Searpy.py --quake -s 'domain="baidu.com"'
+python3 Searpy.py --hunter -s 'domain="baidu.com"'
 
-python3 Searpy.py --shodan -s "weblogic" -l 10 
-
-python3 Searpy.py --google -s "inurl:login.action" -p 1
+python3 Searpy.py --bing -s 'site:baidu.com'
+python3 Searpy.py --google -s "inurl:login.action" -p1 --proxy http://127.0.0.1:1080
 
 ```
 
@@ -94,6 +99,8 @@ python3 Searpy.py --fofa_icon https://www.qq.com
 - [x] 360so
 - [x] Goo
 - [x] Yahoo
+- [x] Quake
+- [x] Hunter
 
 ## 5. ToDo
 - [ ] 添加子域名搜索
@@ -110,5 +117,3 @@ python3 Searpy.py --fofa_icon https://www.qq.com
 * XMR: `498AoZRwfC11Fa4LwAyVVp3wRD4Zyf1e1HziegczeWeSYVVTZ8gw8CoNPm5yhY91tkDqDMBg6A5KUfyowMtdkQDrDxE5aVN`
 * BTC: `1ALWC7rGL4dHgbyy4R8uTVHmDugPDD7Rvt`
 
-## 8. Contact
-- [Twitter](https://twitter.com/j3ers3)

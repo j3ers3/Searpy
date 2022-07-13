@@ -2,6 +2,8 @@
 # encoding:utf8
 import shodan
 import sys
+import requests
+import json
 from shodan.exception import APIError
 from config import *
 
@@ -30,7 +32,7 @@ class Shodan:
         return True
 
     def search(self):
-        print("[+] Using Shodan Engine")
+        print("[*] Using Shodan Engine")
 
         try:
             api = shodan.Shodan(self.api_key)
@@ -47,3 +49,15 @@ class Shodan:
         else:
             self.result = []
 
+    # 添加子域名搜索接口
+    def subdomain(self):
+        print("[*] Using Shodan Engine")
+        url = f'https://api.shodan.io/dns/domain/{self.query}?key={self.api_key}'
+        res = requests.get(url).text
+
+        if not res:
+            return None
+        data = json.loads(res)
+        names = data.get('subdomains')
+
+        self.result = set(map(lambda name: f'{name}.{self.query}', names))

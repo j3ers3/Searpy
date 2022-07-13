@@ -12,6 +12,8 @@ from modules.goo_module import Goo
 from modules.shodanico_module import Shodanico
 from modules.zoomeye_module import Zoomeye
 from modules.yahoo_module import Yahoo
+from modules.quake_module import Quake
+from modules.hunter_module import Hunter
 
 """
 >>> from Searpy import Bing
@@ -23,11 +25,11 @@ from modules.yahoo_module import Yahoo
 
 ##########################################################
 
-__version__ = "2.3"
+__version__ = "2.4"
 __prog__ = "Searpy"
-__author__ = "whois"
+__author__ = "nul1"
 __create_date__ = "2016 01 01"
-__update_date__ = "2020 09 14"
+__update_date__ = "2022 07 11"
 
 ##########################################################
 
@@ -59,6 +61,31 @@ def p(i):
     print(yellow + i + end)
 
 
+# 子域名发现模块
+def subdomain(domain):
+    fofa_search = 'host="{}"'.format(domain)
+    search = 'site:{} -www'.format(domain)
+    output = '{}.txt'.format(domain)
+
+    fofa = Fofa(fofa_search, 10, output)
+    fofa.login()
+    fofa.search()
+    print("[+] Fofa done")
+
+    shodan = Shodan(domain, None)
+    shodan.login()
+    shodan.subdomain()
+    for i in shodan.result:
+        save(output, i)
+    print("[+] Shodan done")
+
+    bing = Bing(search, 15)
+    bing.search()
+    for i in bing.result:
+        save(output, i)
+    print("[+] Bing done")
+
+
 if __name__ == '__main__':
     print(banner)
     parser = argparse.ArgumentParser(
@@ -86,6 +113,11 @@ if __name__ == '__main__':
                         help="Using goo Engine")
     engine.add_argument("--yahoo", dest="yahoo", action='store_true',
                         help="Using yahoo Engine")
+    engine.add_argument("--quake", dest="quake", action='store_true',
+                        help="Using quake Engine")
+    engine.add_argument("--hunter", dest="hunter", action='store_true',
+                        help="Using hunter Engine")
+
 
     script = parser.add_argument_group('SCRIPT')
 
@@ -93,6 +125,8 @@ if __name__ == '__main__':
                         help="Get ip list which using the same favicon.ico")
     script.add_argument("--fofa_icon",
                         help="Get ip list which using the same favicon.ico")
+    script.add_argument("--subdomain",
+                        help="Get subdomain")
 
     misc = parser.add_argument_group('MISC')
 
@@ -104,12 +138,14 @@ if __name__ == '__main__':
                       help="Search page (default 1)")
     misc.add_argument("-l", dest="limit", default=10, type=int,
                       help="Maximum searching results (default:10) Only Shodan")
+    misc.add_argument("--proxy", dest="proxy", help="HTTP Proxy, eg http://127.0.0.1:8080")
 
     args = parser.parse_args()
 
-    if args.search is None and args.shodan_icon is None and args.fofa_icon is None:
-        print(red + "[x] Searpy -h" + end)
-        exit(0)
+    if args.search is None and args.shodan_icon is None and args.fofa_icon is None and args.subdomain is None:
+        parser.print_help()
+
+    proxies = {"http": args.proxy, "https": args.proxy} if args.proxy else {}
 
     if args.zoomeye:
         s = Zoomeye(args.search, args.page)
@@ -126,47 +162,55 @@ if __name__ == '__main__':
             save(args.output, i) if args.output else p(i)
 
     if args.fofa:
-        s = Fofa(args.search, args.page, args.output)
+        s = Fofa(args.search, args.page, args.output, proxies)
         s.login()
         s.search()
-        #for i in s.result:
-        #    save(args.output, i) if args.output else p(i)
 
     if args.baidu:
-        s = Baidu(args.search, args.page)
+        s = Baidu(args.search, args.page, proxies)
         s.search()
         for i in s.result:
             save(args.output, i) if args.output else p(i)
 
     if args.bing:
-        s = Bing(args.search, args.page)
+        s = Bing(args.search, args.page, proxies)
         s.search()
         for i in s.result:
             save(args.output, i) if args.output else p(i)
 
     if args.google:
-        s = Google(args.search, args.page)
+        s = Google(args.search, args.page, proxies)
         s.search()
         for i in s.result:
             save(args.output, i) if args.output else p(i)
 
     if args.so:
-        s = So(args.search, args.page)
+        s = So(args.search, args.page, proxies)
         s.search()
         for i in s.result:
             save(args.output, i) if args.output else p(i)
 
     if args.goo:
-        s = Goo(args.search, args.page)
+        s = Goo(args.search, args.page, proxies)
         s.search()
         for i in s.result:
             save(args.output, i) if args.output else p(i)
 
     if args.yahoo:
-        s = Yahoo(args.search, args.page)
+        s = Yahoo(args.search, args.page, proxies)
         s.search()
         for i in s.result:
             save(args.output, i) if args.output else p(i)
+
+    if args.quake:
+        s = Quake(args.search, args.page, args.output, proxies)
+        s.login()
+        s.search()
+
+    if args.hunter:
+        s = Hunter(args.search, args.page, args.output, proxies)
+        s.login()
+        s.search()
 
     if args.shodan_icon:
         s = Shodanico(args.shodan_icon)
@@ -179,3 +223,5 @@ if __name__ == '__main__':
         s.login()
         s.search()
 
+    if args.subdomain:
+        subdomain(args.subdomain)
