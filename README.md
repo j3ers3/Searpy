@@ -4,7 +4,8 @@
 
 > 支持py2和py3
 
-![banner](media/xxx.png)
+![](media/16576896459839.jpg)
+
 
 
 ## 1. Install
