@@ -25,7 +25,7 @@ from modules.hunter_module import Hunter
 
 ##########################################################
 
-__version__ = "2.1"
+__version__ = "2.4"
 __prog__ = "Searpy"
 __author__ = "nul1"
 __create_date__ = "2016 01 01"
