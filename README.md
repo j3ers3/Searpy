@@ -11,7 +11,7 @@
 ## 1. Install
 ```
 git clone https://github.com/j3ers3/Searpy
-pip install -r requirement.txt
+pip install -r requirements.txt
 
 配置API及账号 ./config.py
 

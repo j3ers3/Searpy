@@ -15,7 +15,8 @@ class Shodanico:
 
     # 请求favicon.ico转换为hash
     def get_hash(self):
-        url = self.url + "/favicon.ico" if '://' in self.url else 'http://' + self.url + "/favicon.ico"
+        url = self.url
+        #url = self.url + "/favicon.ico" if '://' in self.url else 'http://' + self.url + "/favicon.ico"
         print(url)
 
         try:

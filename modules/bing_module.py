@@ -21,10 +21,9 @@ class Bing:
                 base_url = 'https://cn.bing.com/search?q=' + str(self.query) + '&first=' + str(p)
            
                 r = requests.get(base_url, headers=Header.bing_headers, cookies=Header.cookies, verify=False,
-                                 timeout=15, proxies=proxy)
+                                 timeout=15, proxies=self.proxy)
                 soup = BeautifulSoup(r.content, "html.parser")
 
-                # 先查找id=b_results -> 子标签类b_algo -> 查找标签<h2> -> 查找标签<a> -> 获取href
                 for a in soup.select('#b_results > .b_algo > .b_title > a'):
                     res.append(a['href'])
 

@@ -25,11 +25,11 @@ from modules.hunter_module import Hunter
 
 ##########################################################
 
-__version__ = "2.4"
+__version__ = "2.1"
 __prog__ = "Searpy"
 __author__ = "nul1"
 __create_date__ = "2016 01 01"
-__update_date__ = "2022 07 11"
+__update_date__ = "2023 05 17"
 
 ##########################################################
 
@@ -67,7 +67,7 @@ def subdomain(domain):
     search = 'site:{} -www'.format(domain)
     output = '{}.txt'.format(domain)
 
-    fofa = Fofa(fofa_search, 10, output)
+    fofa = Fofa(fofa_search, 10, output, None)
     fofa.login()
     fofa.search()
     print("[+] Fofa done")
@@ -79,7 +79,7 @@ def subdomain(domain):
         save(output, i)
     print("[+] Shodan done")
 
-    bing = Bing(search, 15)
+    bing = Bing(search, 15, None)
     bing.search()
     for i in bing.result:
         save(output, i)
@@ -219,7 +219,7 @@ if __name__ == '__main__':
     if args.fofa_icon:
         i_hash = Shodanico(args.fofa_icon).get_hash()
         search = 'icon_hash="{}"'.format(i_hash)
-        s = Fofa(search, args.page, args.output)
+        s = Fofa(search, args.page, args.output, proxies)
         s.login()
         s.search()
 

@@ -6,7 +6,7 @@ from config import *
 from bs4 import BeautifulSoup
 
 class Yahoo:
-    def __init__(self, query, page):
+    def __init__(self, query, page, proxy):
         self.query = query
         self.page = page
         self.result = None
@@ -21,19 +21,19 @@ class Yahoo:
                 base_url = 'https://search.yahoo.co.jp/search?p=' + str(self.query) + '&b=' + str(p)
 
                 r = requests.get(base_url, headers=Header.bing_headers, cookies=Header.cookies, verify=False,
-                                 timeout=15, proxies=proxy)
+                                 timeout=15, proxies=self.proxy)
 
                 soup = BeautifulSoup(r.content, "html.parser")
-
-                # 先查找class=w -> class=hd -> 查找标签<h3> -> 查找标签<a> -> 获取href
-                for a in soup.select('.w > .hd > h3 > a'):
-                    res.append(a['href'])
+                
+                for n in range(1, 11):
+                    for a in soup.select('#contents__wrap > div.Contents__inner.Contents__inner--main > div.Contents__innerGroupBody > div:nth-child({}) > div > section > div.sw-Card__section.sw-Card__section--header > div > div > a'.format(n)):
+                        res.append(a['href'])
 
             if res is None:
                 print("[x] Not result !!!")
                 exit(1)
-            self.result = res
+            self.result = res 
 
         except Exception as e:
             print("[x] Network is error !!!")
-            pass
+            exit(1)

@@ -5,9 +5,8 @@ from config import *
 import requests
 from bs4 import BeautifulSoup
 
-# 被墙，需要代理
 class Goo:
-    def __init__(self, query, page):
+    def __init__(self, query, page, proxy):
         self.query = query
         self.page = page
         self.result = None

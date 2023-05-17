@@ -24,7 +24,7 @@ class Google:
                 soup = BeautifulSoup(r.content, "html.parser")
 
                 for n in range(1, 11):
-                    for a in soup.select('#rso > div:nth-child({}) > div > div.NJo7tc.Z26q7c.uUuwM.jGGQ5e > div > a'.format(n)):
+                    for a in soup.select('#rso > div:nth-child({}) > div > div > div.Z26q7c.UK95Uc.jGGQ5e > div > a'.format(n)):
                         url = a['href']
                         if 'translate.google.com' not in url:
                             res.append(url)
